@@ -1,0 +1,41 @@
+enum Type {
+  normal
+  work
+  life
+}
+
+type User {
+  id: ID!
+  name: String!
+  gender: Int
+  todos(type: Type): [Todo]
+  email: String!
+  partners: [User]
+
+}
+
+type Todo {
+  id: ID!
+  owner: User!
+  content: String!
+  createTime: String
+  type: Type
+}
+
+input PostTodo{
+  owner: ID!
+  content: String!
+  type: Type
+}
+
+type Query{
+  todo(id: ID, owner:String ): Todo
+  # todo(user: String!): Todo
+  todos(type: Type, owner: String):[Todo]
+}
+
+type Mutation {
+  addTodo(todo:PostTodo): Todo
+  editTodo(id: ID!, owner: ID!, content: String, type: Type): Todo
+  deleteTodo(id: ID!): Todo
+}
