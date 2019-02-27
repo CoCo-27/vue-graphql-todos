@@ -26,9 +26,9 @@ export default {
     }
   },
   User: {
-    todos: (root, { type }) => {
+    todos: (root, args) => {
       return new Promise((resolve, reject) => {
-        Todo.find({ type, owner: root.id })
+        Todo.find(Object.assign({ owner: root.id }, args))
           .populate()
           .exec((err, res) => {
             if (err) {

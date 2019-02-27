@@ -18,7 +18,7 @@ type User {
   gender: Int
   todos(type: Type): [Todo]
   email: String!
-  partners: [User]
+  partners(gender: Int): [User]
 }
 
 type Query {
