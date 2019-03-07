@@ -1,9 +1,11 @@
 <template>
-  <div class="home">
-    <navbar :name="user.name"></navbar>
-    <todos :todos="user.todos"></todos>
-    <partners :partners="user.partners"></partners>
-  </div>
+  <a-spin :spinning="$apollo.queries.user.loading">
+    <div class="home">
+      <navbar :name="user.name"></navbar>
+      <todos :todos="user.todos"></todos>
+      <partners :partners="user.partners"></partners>
+    </div>
+  </a-spin>
 </template>
 
 <script>
@@ -18,7 +20,7 @@ export default {
   name: "home",
   data() {
     return {
-      // user: {}
+      user: {}
       // id: "1"
     };
   },
@@ -38,6 +40,7 @@ export default {
           user(id: $id) {
             name
             todos {
+              id
               type
               content
             }
@@ -45,6 +48,7 @@ export default {
               id
               name
               todos {
+                id
                 type
                 content
               }
@@ -64,8 +68,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: #fffaf0;
 }
 </style>
