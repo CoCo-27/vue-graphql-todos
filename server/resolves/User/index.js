@@ -40,6 +40,7 @@ export default {
       });
     },
     partners: root => {
+      // console.log(root.name, "partners");
       if (!root.partners.length) {
         return Promise.resolve(null);
       }

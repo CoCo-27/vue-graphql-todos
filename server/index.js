@@ -1,9 +1,12 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import opn from "opn";
+// import User from "../../models/User";
+// import Todo from "../../models/Todo";
 import mongoose from "mongoose";
 import typeDefs from "./types";
 import resolvers from "./resolves";
+import DataLoader from "dataloader";
 
 const PORT = 4002;
 
@@ -20,7 +23,23 @@ mongoose
 
 const app = express();
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  tracing: true
+  // context: async () => {
+  //   return {
+  //     User,
+  //     dataloaders: {
+  //       partners: new DataLoader(async arg => {
+  //         return arg.map(async id => {
+  //           return await User.findOne(id);
+  //         });
+  //       })
+  //     }
+  //   };
+  // }
+});
 server.applyMiddleware({ app });
 
 app.listen({ port: PORT }, () => {
